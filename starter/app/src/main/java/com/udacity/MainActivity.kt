@@ -1,5 +1,8 @@
 package com.udacity
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.app.DownloadManager
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -9,6 +12,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,6 +38,23 @@ class MainActivity : AppCompatActivity() {
             download()
         }
     }
+
+
+//    private fun ObjectAnimator.disableViewDuringAnimation(view: View) {
+//
+//        // This extension method listens for start/end events on an animation and disables
+//        // the given view for the entirety of that animation.
+//
+//        addListener(object : AnimatorListenerAdapter() {
+//            override fun onAnimationStart(animation: Animator?) {
+//                view.isEnabled = false
+//            }
+//
+//            override fun onAnimationEnd(animation: Animator?) {
+//                view.isEnabled = true
+//            }
+//        })
+//    }
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
