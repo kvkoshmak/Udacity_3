@@ -25,6 +25,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name=".DetailActivity"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+
+        <meta-data
+            android:name="com.udacity.default_notification_icon"
+            android:resource="@drawable/ic_assistant_black_24dp"/>
     </application>
 
 </manifest>

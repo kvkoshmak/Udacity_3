@@ -9,6 +9,36 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/custom_button"
+        app:layout_constraintEnd_toEndOf="@+id/custom_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/custom_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <RadioButton
+            android:id="@+id/radio_button_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_1" />
+
+        <RadioButton
+            android:id="@+id/radio_button_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_2" />
+
+        <RadioButton
+            android:id="@+id/radio_button_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_3" />
+    </RadioGroup>
+
     <com.udacity.LoadingButton
         android:id="@+id/custom_button"
         android:layout_width="0dp"
