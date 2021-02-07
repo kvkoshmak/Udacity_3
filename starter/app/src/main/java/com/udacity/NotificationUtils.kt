@@ -31,9 +31,9 @@ fun NotificationManager.sendNotification(messageBody: String, name: String, stat
             applicationContext.resources,
             R.drawable.ic_assistant_black_24dp
     )
-    val bigPicStyle = NotificationCompat.BigPictureStyle()
-            .bigPicture(notImage)
-            .bigLargeIcon(null)
+    val bigPicStyle = NotificationCompat.InboxStyle()
+//            .bigPicture(notImage)
+//            .bigLargeIcon(null)
 
     // Build the notification
     val builder = NotificationCompat.Builder(
@@ -51,6 +51,12 @@ fun NotificationManager.sendNotification(messageBody: String, name: String, stat
 
             .setStyle(bigPicStyle)
             .setLargeIcon(notImage)
+
+            .addAction(
+                    R.drawable.ic_assistant_black_24dp,
+                    "DetailActivity",
+                    contentPendingIntent
+            )
 
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 

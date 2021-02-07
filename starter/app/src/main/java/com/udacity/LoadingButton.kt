@@ -10,6 +10,7 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.withStyledAttributes
 import kotlin.properties.Delegates
 
 private const val OFFSET_BUTTON = 30
@@ -36,6 +37,8 @@ class LoadingButton @JvmOverloads constructor(
     private var labelButton=DownloadingLabel.DOWNLOAD
     private var valueAnimator = ValueAnimator()
     private var progress = 0F
+    private var textColorr = 0
+    private var backgroundColorr = 0
 
 //    private var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
 //        when (new){
@@ -57,6 +60,10 @@ class LoadingButton @JvmOverloads constructor(
 
     init {
         isClickable = true
+        context.withStyledAttributes(attrs, R.styleable.LoadingButton) {
+            backgroundColorr = getColor(R.styleable.LoadingButton_backgroundColor, resources.getColor(R.color.colorPrimary))
+            textColorr = getColor(R.styleable.LoadingButton_textColor, Color.WHITE)
+        }
     }
     override fun performClick(): Boolean {
 
@@ -72,7 +79,7 @@ class LoadingButton @JvmOverloads constructor(
         super.onDraw(canvas)
 
         // Main button
-        paint.color = resources.getColor(R.color.colorPrimary)
+        paint.color = backgroundColorr //resources.getColor(R.color.colorPrimary)
         canvas.drawRoundRect(0.toFloat(), 0.toFloat(), widthSize.toFloat(), heightSize.toFloat(), CORNER_RADIUS, CORNER_RADIUS, paint)
 
         // LOADING animation
@@ -87,7 +94,7 @@ class LoadingButton @JvmOverloads constructor(
         }
 
         //Draw text over all the animations
-        paint.color = Color.WHITE
+        paint.color = textColorr
         val labelText = resources.getString(labelButton.label)
         canvas.drawText(labelText, widthSize / 2F, heightSize / 1.5F, paint)
     }

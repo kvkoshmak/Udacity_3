@@ -99,7 +99,6 @@ class MainActivity : AppCompatActivity() {
                     status,
                     context
             )
-            
         }
     }
 

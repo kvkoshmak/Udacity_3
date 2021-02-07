@@ -1,10 +1,12 @@
 package com.udacity
 
+import android.app.NotificationManager
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
 
@@ -26,6 +28,13 @@ class DetailActivity : AppCompatActivity() {
         } else {
             statusInput.setTextColor(Color.GREEN)
         }
+
+        val notificationManager = ContextCompat.getSystemService(
+                this,
+                NotificationManager::class.java
+        ) as NotificationManager
+        //Send the data with notification
+        notificationManager.cancelAll()
 
     }
 
