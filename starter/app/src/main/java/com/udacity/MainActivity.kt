@@ -26,12 +26,15 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var downloadID: Long = 0
+    private var firstRepoDownloadID : Long = 0
+    private var secondRepoDownloadID : Long = 0
+    private var thirdRepoDownloadID : Long = 0
+    private var name :String = ""
     private var link: String? = null
 
-    private lateinit var notificationManager: NotificationManager
-    private lateinit var pendingIntent: PendingIntent
-    private lateinit var action: NotificationCompat.Action
+//    private lateinit var notificationManager: NotificationManager
+//    private lateinit var pendingIntent: PendingIntent
+//    private lateinit var action: NotificationCompat.Action
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         custom_button.setOnClickListener {
             if (link != null) {
                 download()
-                Toast.makeText(this, link, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, link, Toast.LENGTH_SHORT).show()
             } else Toast.makeText(this, R.string.no_link, Toast.LENGTH_SHORT).show()
         }
 
@@ -62,15 +65,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver)
+    }
+
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent!!.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-//            when (id) {
-//                firstRepoDownloadID->  Toast.makeText(MainActivity.this, "First repo download", Toast.LENGTH_SHORT).show()
-//                secondRepoDownloadID -> Toast.makeText(MainActivity.this, "Second repo download", Toast.LENGTH_SHORT).show()
-//
-//            }
+            when (id) {
+                firstRepoDownloadID->  name = getString(R.string.radio_1)
+                secondRepoDownloadID -> name = getString(R.string.radio_2)
+                thirdRepoDownloadID -> name = getString(R.string.radio_3)
+            }
             val query = DownloadManager.Query().setFilterById(id)
             val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
             val cursor = downloadManager.query(query)
@@ -84,9 +92,10 @@ class MainActivity : AppCompatActivity() {
                     context!!,
                     NotificationManager::class.java
             ) as NotificationManager
+            //Send the data with notification
             notificationManager.sendNotification(
                     "The Project 3 repository is downloaded",
-                    "name",
+                    name,
                     status,
                     context
             )
@@ -104,9 +113,11 @@ class MainActivity : AppCompatActivity() {
                 .setAllowedOverRoaming(true)
 
         val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-        downloadID =
-            downloadManager.enqueue(request)// enqueue puts the download request in the queue.
-
+        when (link ){
+            URL_GL -> firstRepoDownloadID = downloadManager.enqueue(request)
+            URL_UD -> secondRepoDownloadID = downloadManager.enqueue(request)
+            URL_RET -> thirdRepoDownloadID = downloadManager.enqueue(request)
+        }
 
     }
 
@@ -137,7 +148,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val URL_UD =
             "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
-        private const val CHANNEL_ID = "channelId"
         private const val URL_GL = "https://github.com/bumptech/glide/archive/master.zip"
         private const val URL_RET = "https://github.com/square/retrofit/archive/master.zip"
     }
