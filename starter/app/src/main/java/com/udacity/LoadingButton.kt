@@ -49,9 +49,7 @@ class LoadingButton @JvmOverloads constructor(
 //    }
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        // Paint styles used for rendering are initialized here. This
-        // is a performance optimization, since onDraw() is called
-        // for every screen refresh.
+
         style = Paint.Style.FILL
         textAlign = Paint.Align.CENTER
         textSize = TEXT_SIZE
@@ -61,8 +59,8 @@ class LoadingButton @JvmOverloads constructor(
     init {
         isClickable = true
         context.withStyledAttributes(attrs, R.styleable.LoadingButton) {
-            backgroundColorr = getColor(R.styleable.LoadingButton_backgroundColor, resources.getColor(R.color.colorPrimary))
-            textColorr = getColor(R.styleable.LoadingButton_textColor, Color.WHITE)
+            backgroundColorr = getColor(R.styleable.LoadingButton_backgroundColor, 0)
+            textColorr = getColor(R.styleable.LoadingButton_textColor, 0)
         }
     }
     override fun performClick(): Boolean {
